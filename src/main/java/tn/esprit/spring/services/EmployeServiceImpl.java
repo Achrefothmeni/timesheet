@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ import tn.esprit.spring.repository.TimesheetRepository;
 @Service
 public class EmployeServiceImpl implements IEmployeService {
 
+	private static final Logger LOGGER = LogManager.getLogger(EmployeServiceImpl.class);
+	
 	@Autowired
 	EmployeRepository employeRepository;
 	@Autowired
@@ -33,13 +37,25 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	@Override
 	public Employe authenticate(String login, String password) {
+		LOGGER.info("Authenticating");
 		return employeRepository.getEmployeByEmailAndPassword(login, password);
 	}
 
 	@Override
 	public int addOrUpdateEmploye(Employe employe) {
-		employeRepository.save(employe);
-		return employe.getId();
+		
+		
+		try{
+			employeRepository.save(employe);
+			LOGGER.info("Saved employee sucessfully");
+			return employe.getId();
+		}
+		catch(Exception e) {
+			LOGGER.error(e.getMessage());
+			return 0;
+		}
+		
+		
 	}
 
 
