@@ -37,7 +37,6 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	@Override
 	public Employe authenticate(String login, String password) {
-		LOGGER.info("Authenticating");
 		return employeRepository.getEmployeByEmailAndPassword(login, password);
 	}
 
@@ -47,11 +46,9 @@ public class EmployeServiceImpl implements IEmployeService {
 		
 		try{
 			employeRepository.save(employe);
-			LOGGER.info("Saved employee sucessfully");
 			return employe.getId();
 		}
 		catch(Exception e) {
-			LOGGER.error(e.getMessage());
 			return 0;
 		}
 		
@@ -80,8 +77,6 @@ public class EmployeServiceImpl implements IEmployeService {
 
 			depManagedEntity.getEmployes().add(employeManagedEntity);
 		}
-
-		// à ajouter? 
 		deptRepoistory.save(depManagedEntity); 
 
 	}
@@ -94,13 +89,11 @@ public class EmployeServiceImpl implements IEmployeService {
 		for(int index = 0; index < employeNb; index++){
 			if(dep.getEmployes().get(index).getId() == employeId){
 				dep.getEmployes().remove(index);
-				break;//a revoir
+				break;
 			}
 		}
 	} 
 	
-	// Tablesapce (espace disque) 
-
 	public int ajouterContrat(Contrat contrat) {
 		contratRepoistory.save(contrat);
 		return contrat.getReference();
@@ -123,10 +116,6 @@ public class EmployeServiceImpl implements IEmployeService {
 	public void deleteEmployeById(int employeId)
 	{
 		Employe employe = employeRepository.findById(employeId).get();
-
-		//Desaffecter l'employe de tous les departements
-		//c'est le bout master qui permet de mettre a jour
-		//la table d'association
 		for(Departement dep : employe.getDepartements()){
 			dep.getEmployes().remove(employe);
 		}
@@ -175,7 +164,14 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public List<Employe> getAllEmployes() {
-		return (List<Employe>) employeRepository.findAll();
+		try {
+			LOGGER.debug("Returned employees list successfully");
+			return (List<Employe>) employeRepository.findAll();
+		}
+		catch(Exception e) {
+			LOGGER.error(e.getMessage());
+			return new ArrayList();
+		}
 	}
 
 }
