@@ -7,7 +7,7 @@ import javax.servlet.DispatcherType;
 
 import org.ocpsoft.rewrite.servlet.RewriteFilter;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
