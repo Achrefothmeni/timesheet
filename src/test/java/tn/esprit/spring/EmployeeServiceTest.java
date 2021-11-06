@@ -12,20 +12,11 @@ import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.services.IEmployeService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+
 public class EmployeeServiceTest {
 	
 	
-	@Autowired
-	IEmployeService employeService;
-	
-	@Test
-	public void testContextLoads() {
-		Employe e = new Employe("Achref", "Othmani", "achref.othmani@esprit.tn", "password", true, Role.INGENIEUR );
-		this.employeService.addOrUpdateEmploye(e);
-		assertThat(e.getNom()).isEqualTo("Achref");
-	}
+
 
 	
 }
