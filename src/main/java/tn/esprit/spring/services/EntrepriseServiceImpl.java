@@ -32,7 +32,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		catch (Exception e)
 		{
 			LOGGER.error(e.getMessage());
-			return 0;
+			throw e;
 		}
 
 	}
@@ -47,7 +47,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		catch (Exception e)
 		{
 			LOGGER.error(e.getMessage());
-			return 0;
+			throw e;
 		}
 	}
 	
