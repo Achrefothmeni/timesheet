@@ -11,10 +11,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.services.IEmployeService;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class EmployeeServiceTest {
 
-    @RunWith(SpringRunner.class)
-    @SpringBootTest
+
 
     @Autowired
     IEmployeService employeService;
@@ -25,5 +27,5 @@ public class EmployeeServiceTest {
         this.employeService.addOrUpdateEmploye(e);
         assertThat(e.getNom()).isEqualTo("Achref");
     }
-	
+
 }
