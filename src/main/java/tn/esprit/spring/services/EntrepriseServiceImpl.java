@@ -38,6 +38,11 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 
 	}
 
+	@Override
+	public List<Entreprise> findAll() {
+		return (List<Entreprise>) entrepriseRepoistory.findAll();
+	}
+
 	public int ajouterDepartement(Departement dep) {
 		try {
 			LOGGER.debug("Trait for dev");

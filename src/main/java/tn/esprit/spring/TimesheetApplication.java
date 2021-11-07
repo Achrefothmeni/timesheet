@@ -4,6 +4,8 @@ import java.util.EnumSet;
 
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
+import javax.servlet.Servlet;
 
 import org.ocpsoft.rewrite.servlet.RewriteFilter;
 import org.springframework.boot.SpringApplication;
@@ -21,12 +23,12 @@ public class TimesheetApplication {
 	public static void main(String[] args) {SpringApplication.run(TimesheetApplication.class, args);}
 
 	@Bean
-	public ServletRegistrationBean servletRegistrationBean() {
+	public ServletRegistrationBean<Servlet> servletRegistrationBean() {
 		FacesServlet servlet = new FacesServlet();
-		return new ServletRegistrationBean(servlet, "*.jsf"); }
+		return new ServletRegistrationBean<>(servlet, "*.jsf"); }
 
 	@Bean
-	public FilterRegistrationBean rewriteFilter() {
+	public FilterRegistrationBean<Filter> rewriteFilter() {
 		FilterRegistrationBean rwFilter = new FilterRegistrationBean(new RewriteFilter());
 		rwFilter.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST, DispatcherType.ASYNC, DispatcherType.ERROR));
 		rwFilter.addUrlPatterns("/*");
